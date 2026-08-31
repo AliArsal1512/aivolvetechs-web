@@ -42,10 +42,18 @@ export const ContactForm: React.FC<ContactFormProps> = ({ preselectedService = '
     try {
       const response = await submitInquiry(formData);
 
-      const data = await response.json();
+      let data: Record<string, any> = {};
+      try {
+        data = await response.json();
+      } catch {
+        data = {};
+      }
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to transmit inquiry.');
+        throw new Error(
+          data.error ||
+            `Submission failed (${response.status}). Please try again or email support@aivolvetechs.com directly.`
+        );
       }
 
       setSubmitted(true);

@@ -17,6 +17,18 @@ async function startServer() {
     });
   });
 
+  app.get('/api/inquiries', (_req, res) => {
+    res.json({
+      status: 'ok',
+      service: 'Aivolve Inquiries API',
+      endpoint: '/api/inquiries',
+      acceptedMethods: ['POST', 'GET', 'OPTIONS'],
+      message:
+        'Aivolve Inquiries API is operational. Submit inquiries by sending a POST request with JSON payload.',
+      timestamp: new Date().toISOString(),
+    });
+  });
+
   app.post('/api/inquiries', async (req, res) => {
     const result = await processInquiry(req.body);
     return res.status(result.status).json(result.body);

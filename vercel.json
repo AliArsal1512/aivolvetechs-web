@@ -3,7 +3,6 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "installCommand": "npm install",
-  "framework": null,
   "rewrites": [
     {
       "source": "/((?!api/).*)",
@@ -11,9 +10,13 @@
     }
   ],
   "functions": {
+    "api/*.ts": {
+      "memory": 1024,
+      "maxDuration": 15
+    },
     "api/**/*.ts": {
       "memory": 1024,
-      "maxDuration": 10
+      "maxDuration": 15
     }
   }
 }
