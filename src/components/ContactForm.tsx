@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Send, CheckCircle2, ArrowUpRight, ShieldCheck, Mail, MapPin, AlertCircle } from 'lucide-react';
 import { services } from '../data';
+import { submitInquiry } from '../lib/api';
 
 interface ContactFormProps {
   preselectedService?: string | null;
@@ -39,13 +40,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ preselectedService = '
     setErrorMessage(null);
 
     try {
-      const response = await fetch('/api/inquiries', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await submitInquiry(formData);
 
       const data = await response.json();
 
